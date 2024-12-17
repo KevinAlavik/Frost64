@@ -23,6 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <cstring>
 #include <filesystem>
 #include <map>
+#include <stdexcept>
 #include <string>
 
 PreProcessor::PreProcessor()
@@ -366,7 +367,7 @@ void PreProcessor::HandleIncludes(const char* source, size_t source_size, const 
                     preprocessor.m_referencePoints.clear();
                 } else
                     // TODO: Fix the std::format not being available always.
-                    error("Could not open included file."); // Temporary workaround.
+                    throw std::runtime_error("Could not open included file."); // Sooooo dirty fix but eh, haha
                     // error(std::format("Could not open included file \"{}\": {}", std::string(include_start, include_end), strerror(errno)).c_str(), start_ref->file_name, start_ref->line);
                 i_source = include_end + 1;
                 CreateReferencePoint(source, i_source - source, file_name.data(), m_current_offset);
