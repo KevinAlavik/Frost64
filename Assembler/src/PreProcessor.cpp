@@ -367,8 +367,8 @@ void PreProcessor::HandleIncludes(const char* source, size_t source_size, const 
                     preprocessor.m_referencePoints.clear();
                 } else
                     // TODO: Fix the std::format not being available always.
-                    throw std::runtime_error("Could not open included file."); // Sooooo dirty fix but eh, haha
                     // error(std::format("Could not open included file \"{}\": {}", std::string(include_start, include_end), strerror(errno)).c_str(), start_ref->file_name, start_ref->line);
+                    error("Could not open included file", start_ref->file_name, start_ref->line); // Dirty fix
                 i_source = include_end + 1;
                 CreateReferencePoint(source, i_source - source, file_name.data(), m_current_offset);
             } else {
